@@ -5,7 +5,7 @@
 #****
 #*****
 #******
-#END
+#END 
 #b. modificati programul a.i. n sa fie introdus de la tastatura
 
 n = int(input("Scrie un numar:"))
