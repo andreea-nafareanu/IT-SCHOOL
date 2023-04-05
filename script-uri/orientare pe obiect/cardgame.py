@@ -1,4 +1,5 @@
 from typing import Self, List 
+import random
 
 s1 = "♠"
 s2 = "♥"
@@ -69,6 +70,7 @@ class Card:
     def __add__(self, other):
         #returneaza acelasi tip , dar un obiect nou
         return self.get_number() + other.get_number()
+   
 
 class Deck:
     """
@@ -76,6 +78,9 @@ class Deck:
     """
     def __init__(self) -> None:
         self.__cards = []
+        for symbol in CARD_SYMBOLS:
+            for number in CARD_VALUE_MAP:
+                self.__cards.append(Card(number, symbol))
 
     def get_size(self):
         return len(self.__cards)
@@ -83,10 +88,19 @@ class Deck:
     def __len__(self):
         #trebuie sa returneze int sau float
         return len(self.__cards)
-    def get_cards(self, number) -> List[Card]:
+    
+    def get_cards(self, n) -> List[Card]:
         """Return n cars"""
+        list1 = []
+        if n > len(self.__cards()):
+            raise ValueError("You don't have enough cards.")
+        for i in range(n):
+            list1.append(self.__cards.pop())
+        return list1
+
     def shuffle(self):
         """Shuffles the desk"""
+        random.shuffle(self.__cards)
 
 d1 = Deck()
 
@@ -102,7 +116,7 @@ print(c1!=c2)
 print(c1+c2)
 
 print(f"Carti in pachet: {len(d1)}")
-print(c1)
+#print(c1)
 #print(f"Exception happened for object: {c1}")
 #print(c1.__str__())
 
@@ -112,3 +126,8 @@ print(c1)
 #atunci cand se creeaza un deck nou, sa fie initializat cu cele 52 de carti - se face in deck init cu 2 for-uri si faci append in lista
 #si de implementat metoda get_cards si shuffles
 #de implementat metodele magice pentru a sorta o lista de carti
+
+print(d1.get_cards(5))
+print(f"Carti in pachet: {len(d1)}")
+get_shuffle(d1)
+print(d1.get_cards(5))
